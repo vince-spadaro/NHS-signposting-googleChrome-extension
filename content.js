@@ -3,44 +3,44 @@
 
 
   if (matchPage('https://www.nhs.uk/')) {
-      changeHomePageHeader();
-  }
+    changeHomePageHeader();
+  };
   
   if (matchPage('https://www.nhs.uk/nhs-services/prescriptions/how-to-order-a-repeat-prescription/')) {
-      changeRepeatPrescriptionHeader();
-  }
+    changeRepeatPrescriptionHeader();
+  };
 
   if (matchPage('https://www.nhs.uk/nhs-app/account/')) {
-      changeNHSAccountPageHeader();
-  }
+    changeNHSAccountPageHeader();
+  };
 
   if (matchPage('https://www.nhs.uk/nhs-app/')) {
-      changeNHSAppPageHeader();
-  }
+    changeNHSAppPageHeader();
+  };
 
   if (matchPage('https://www.nhs.uk/nhs-services/gps/gp-appointments-and-bookings/')) {
-      changeNHSGpAppointments();
-  }
+    changeNHSGpAppointments();
+  };
 
   if (matchPage('https://www.nhs.uk/nhs-services/online-services/nhs-login/')) {
-      changeNHSLogin();
-  }
+    changeNHSLogin();
+  };
 
   if (matchPage('https://www.nhs.uk/conditions/baby/support-and-services/services-and-support-for-parents/')) {
     changeNHSServicesAndSupportForParents();
-  }
+  };
 
   if (matchPage('https://www.nhs.uk/conditions/social-care-and-support-guide/caring-for-children-and-young-people/moving-from-childrens-social-care-to-adults-social-care/')) {
     changeNHSCaringForChildren();
-  }
+  };
 
   if (matchPage('https://www.nhs.uk/conditions/social-care-and-support-guide/caring-for-children-and-young-people/how-to-care-for-children-with-complex-needs/')) {
     changeNHSCaringForChildrenWithComplexNeeds();
-  }
+  };
 
   if (matchPage('https://www.nhs.uk/conditions/social-care-and-support-guide/care-services-equipment-and-care-homes/')) {
     changeNHSCareServices();
-  }
+  };
 
 
 
