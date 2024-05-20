@@ -1,0 +1,14 @@
+{
+    "manifest_version": 3,
+    "name": "Add someone to your NHS account - Basil Team Sprint 17",
+    "version": "1.0",
+    "description": "An extension to test the signposting hypotheses.",
+    "permissions": ["activeTab", "scripting"],
+    "content_scripts": [
+      {
+        "matches": ["*://*.nhs.uk/*"],
+        "js": ["content.js"]
+      }
+    ]
+  }
+  
