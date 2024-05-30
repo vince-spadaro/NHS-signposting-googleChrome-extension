@@ -42,12 +42,54 @@
     changeNHSCareServices();
   };
 
+  if (matchPage('https://www.nhs.uk/nhs-services/gps/')) {
+    changeNHSServicesGp();
+  };
+
+  if (matchPage('https://www.nhs.uk/nhs-services/gps/using-online-services/')) {
+    changeNHSUsingOnlineServices();
+  };
+
+
+
 
 
   // Function to check if the current page URL matches a specific pattern
   function matchPage(urlPattern) {
     console.log('Checking URL pattern:', urlPattern); // Debugging: Log the URL pattern being checked
     return window.location.href.includes(urlPattern);
+  };
+
+
+
+
+  // Function to replace login header 
+  function changeNHSUsingOnlineServices(){
+
+    var targetH3 = document.querySelector('h3');
+    if (targetH3 && targetH3.textContent.trim() === 'Access NHS services online') {
+        targetH3.textContent = 'Access NHS services online for yourself or someone you care for';
+    } else {
+        console.log('Target h3 not found'); // Debugging: Log if the target h4 element is not found
+    };
+  };
+
+
+
+
+  // Remove proxy link from NHS services gp
+  function changeNHSServicesGp() {
+    // Get all <a> elements
+    const links = document.querySelectorAll('a');
+  
+    // Iterate through all <a> elements
+    links.forEach(link => {
+      // Check if the link's text content includes the specified text
+      if (link.textContent.includes("Accessing GP services for someone else, with proxy access")) {
+        // Remove the link if the text matches
+        link.remove();
+      }
+    });
   };
 
 
@@ -313,6 +355,41 @@
           console.log('Changing href of button:', button); // Debugging: Log each button before changing
           button.href = 'https://www.google.com';
       });
-  }
-})();
+  };
 
+
+
+
+  function changeButtonLinks() {
+    // List of classes to target
+    const targetClasses = ['nhsuk-button', 'nhsuk-button nhsuk-button--beta-login'];
+    
+    // Specific href to target
+    const targetHref = 'https://www.nhsapp.service.nhs.uk/login';
+  
+    // Change href for links with specified classes
+    targetClasses.forEach(targetClass => {
+      // Select all <a> elements with the current class
+      const buttons = document.querySelectorAll(`a.${targetClass.split(' ').join('.')}`);
+      
+      // Iterate through all selected <a> elements
+      buttons.forEach(button => {
+        // Change the href attribute to https://www.google.com
+        button.href = 'https://proxy-nhs-app-7c9c0511777e.herokuapp.com/Sprint17/login/1-home-login';
+      });
+    });
+  
+    // Change href for links with the specified href
+    const hrefLinks = document.querySelectorAll(`a[href="${targetHref}"]`);
+  
+    // Iterate through all selected <a> elements with the specific href
+    hrefLinks.forEach(link => {
+      // Change the href attribute to https://www.google.com
+      link.href = 'https://proxy-nhs-app-7c9c0511777e.herokuapp.com/Sprint17/login/1-home-login';
+    });
+  }
+  
+  // Call the function to change the href attributes
+  changeButtonLinks();
+
+})();
