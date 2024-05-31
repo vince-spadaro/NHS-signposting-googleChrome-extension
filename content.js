@@ -46,10 +46,6 @@
     changeNHSServicesGp();
   };
 
-  if (matchPage('https://www.nhs.uk/nhs-services/gps/using-online-services/')) {
-    changeNHSUsingOnlineServices();
-  };
-
 
 
 
@@ -58,20 +54,6 @@
   function matchPage(urlPattern) {
     console.log('Checking URL pattern:', urlPattern); // Debugging: Log the URL pattern being checked
     return window.location.href.includes(urlPattern);
-  };
-
-
-
-
-  // Function to replace login header 
-  function changeNHSUsingOnlineServices(){
-
-    var targetH3 = document.querySelector('h3');
-    if (targetH3 && targetH3.textContent.trim() === 'Access NHS services online') {
-        targetH3.textContent = 'Access NHS services online for yourself or someone you care for';
-    } else {
-        console.log('Target h3 not found'); // Debugging: Log if the target h4 element is not found
-    };
   };
 
 
@@ -259,7 +241,7 @@
       targetH2s.forEach(function(h2) {
           if (h2.textContent.trim() === 'NHS App') {
               console.log('Target h2 found:', h2); // Debugging: Log each target h2 element
-              h2.textContent = 'Manage services online for yourself or someone you care for';
+              h2.textContent = 'Access NHS services online for yourself or someone you care for';
           }
       });
 
@@ -278,7 +260,7 @@
       var targetH1 = document.querySelector('h1');
       if (targetH1 && targetH1.textContent.trim() === 'NHS App') {
           console.log('Target h1 found:', targetH1); // Debugging: Log the target h1 element
-          targetH1.textContent = 'Manage services for yourself or someone you care for.';
+          targetH1.textContent = 'Access NHS services online for yourself or someone you care for.';
       } else {
           console.log('Target h1 not found'); // Debugging: Log if the target h1 element is not found
       }
@@ -292,7 +274,7 @@
         var targetH3 = targetDiv.querySelector('h3');
         if (targetH3) {
             console.log('Target h3 found:', targetH3); // Debugging: Log the target h3 element
-            targetH3.textContent = 'Log in or open the NHS app to manage services for yourself or someone you care for.';
+            targetH3.textContent = 'Log in or open the NHS app to access services for yourself or someone you care for.';
         } else {
             console.log('Target h3 not found'); // Debugging: Log if the target h3 element is not found
         }
@@ -334,7 +316,7 @@
       var targetH1 = document.querySelector('h1');
       if (targetH1 && targetH1.textContent.trim() === 'Access your NHS account') {
           console.log('Target h1 found:', targetH1); // Debugging: Log the target h1 element
-          targetH1.textContent = 'Manage services for yourself or someone you care for.';
+          targetH1.textContent = 'Access NHS services online for yourself or someone you care for.';
       } else {
           console.log('Target h1 not found'); // Debugging: Log if the target h1 element is not found
       }
@@ -344,7 +326,7 @@
       targetLis.forEach(function(li) {
           if (li.textContent.trim() === 'access other NHS services') {
               console.log('Target li found:', li); // Debugging: Log each target li element
-              li.textContent = 'manage NHS services for someone else';
+              li.textContent = 'Access NHS services for someone else';
           }
       });
 
@@ -359,6 +341,7 @@
 
 
 
+  // Function that runs in every page opened 
 
   function changeButtonLinks() {
     // List of classes to target
@@ -375,7 +358,7 @@
       // Iterate through all selected <a> elements
       buttons.forEach(button => {
         // Change the href attribute to https://www.google.com
-        button.href = 'https://proxy-nhs-app-7c9c0511777e.herokuapp.com/Sprint17/login/1-home-login';
+        button.href = 'https://proxy-nhs-app-7c9c0511777e.herokuapp.com/Sprint17/login/2-login';
       });
     });
   
@@ -385,11 +368,24 @@
     // Iterate through all selected <a> elements with the specific href
     hrefLinks.forEach(link => {
       // Change the href attribute to https://www.google.com
-      link.href = 'https://proxy-nhs-app-7c9c0511777e.herokuapp.com/Sprint17/login/1-home-login';
+      link.href = 'https://proxy-nhs-app-7c9c0511777e.herokuapp.com/Sprint17/login/2-login';
     });
-  }
+  };
+
+    // Function to replace login header 
+    function changeNHSH3Login(){
+
+      var targetH3 = document.querySelector('h3');
+      if (targetH3 && targetH3.textContent.trim() === 'Access NHS services online') {
+          targetH3.textContent = 'Access NHS services online for yourself or someone you care for';
+      } else {
+          console.log('Target h3 not found'); // Debugging: Log if the target h4 element is not found
+      };
+    };
+
   
   // Call the function to change the href attributes
   changeButtonLinks();
+  changeNHSH3Login();
 
 })();
