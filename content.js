@@ -87,6 +87,8 @@
       param1 = 'appointments';
     } else if (currentUrl.includes('record')) {
       param1 = 'record';
+    } else if (currentUrl.includes('coronavirus-record')) {
+      param1 = 'coronavirus';
     } else if (currentUrl.includes('test')) {
     param1 = 'record';
     } else param1 = 'home';
