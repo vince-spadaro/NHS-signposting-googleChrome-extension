@@ -42,9 +42,19 @@
     changeNHSCareServices();
   };
 
-  if (matchPage('https://www.nhs.uk/nhs-services/gps/')) {
-    changeNHSServicesGp();
+  // if (matchPage('https://www.nhs.uk/nhs-services/gps/')) {
+  //   changeNHSServicesGp();
+  // };
+
+  if (matchPage('https://www.nhs.uk/nhs-services/gps/gp-services-for-someone-else-proxy-access/')) {
+    changeNHSProxyAccess();
   };
+
+
+  if (matchPage('https://www.nhs.uk/nhs-services/gps/gp-services-for-someone-else-proxy-access/how-to-get-proxy-access/')) {
+    replaceNHSProxyAccessHowToGetAccess();
+  };
+  
 
 
 
@@ -58,21 +68,140 @@
 
 
 
-
-  // Remove proxy link from NHS services gp
-  function changeNHSServicesGp() {
-    // Get all <a> elements
-    const links = document.querySelectorAll('a');
-  
-    // Iterate through all <a> elements
-    links.forEach(link => {
-      // Check if the link's text content includes the specified text
-      if (link.textContent.includes("Accessing GP services for someone else, with proxy access")) {
-        // Remove the link if the text matches
-        link.remove();
-      }
+  // URL FOR SIGNPOSTING - change the url 'email address login page' to adapt logic to another prototype
+  function changeButtonLinks() {
+    // List of classes to target
+    const targetClasses = ['nhsuk-button', 'nhsuk-button nhsuk-button--beta-login'];
+    
+    // Specific href to target
+    const targetHref = 'https://www.nhsapp.service.nhs.uk/login';
+    
+    // Get the current URL
+    const currentUrl = window.location.href;
+    
+    // Determine the param1 value based on the current URL
+    let param1 = '';
+    if (currentUrl.includes('prescription')) {
+      param1 = 'prescription';
+    } else if (currentUrl.includes('appointments')) {
+      param1 = 'appointments';
+    } else if (currentUrl.includes('record')) {
+      param1 = 'record';
+    } else if (currentUrl.includes('test')) {
+    param1 = 'record';
+    } else param1 = 'home';
+    
+    // Base URL for prototype login
+    const baseUrl = 'https://proxy-nhs-app-7c9c0511777e.herokuapp.com/Sprint20/login/2-login';
+    
+    // Construct the new URL with the param1 value
+    const newUrl = param1 ? `${baseUrl}?param1=${param1}` : baseUrl;
+    
+    // Change href for links with specified classes
+    targetClasses.forEach(targetClass => {
+      // Select all <a> elements with the current class
+      const buttons = document.querySelectorAll(`a.${targetClass.split(' ').join('.')}`);
+      
+      // Iterate through all selected <a> elements
+      buttons.forEach(button => {
+        // Change the href attribute to the new URL
+        button.href = newUrl;
+      });
     });
+
+    
+    // Change href for links with the specified href
+    const hrefLinks = document.querySelectorAll(`a[href="${targetHref}"]`);
+    
+    // Iterate through all selected <a> elements with the specific href
+    hrefLinks.forEach(link => {
+      // Change the href attribute to the new URL
+      link.href = newUrl;
+    });
+  }
+  
+  // Call the function to change the button links
+  changeButtonLinks();
+
+
+
+
+  // // Remove proxy link from NHS services gp
+  // function changeNHSServicesGp() {
+  //   // Get all <a> elements
+  //   const links = document.querySelectorAll('a');
+  
+  //   // Iterate through all <a> elements
+  //   links.forEach(link => {
+  //     // Check if the link's text content includes the specified text
+  //     if (link.textContent.includes("Accessing GP services for someone else, with proxy access")) {
+  //       // Remove the link if the text matches
+  //       link.remove();
+  //     }
+  //   });
+  // };
+
+  function changeNHSProxyAccess() {
+
+    // Define the new div HTML content  [add a div after an element with class]
+    const newDivContent = `
+      <div class="nhsuk-inset-text">
+        <span class="nhsuk-u-visually-hidden">Information: </span>
+        <h4 class="nhsuk-heading-m">Manage services online for yourself or someone you care for using your NHS App or account</h4>
+        <ul class="nhsuk-list nhsuk-u-clear">
+            <li class="nhsuk-u-float-left">
+              <a href="#" role="button" draggable="false" class="nhsuk-button nhsuk-button--beta-login">Log in or open NHS App</a>
+            </li>
+            <li class="nhsuk-u-float-left">
+              <a href="#" role="button" draggable="false" class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-bottom-0">Create an account</a>
+            </li>
+        </ul>
+      </div>
+    `;
+
+    // Find the target element
+    const targetElement = document.querySelector('section.nhsuk-u-reading-width');
+    
+    if (targetElement) {
+      // Create a new div element
+      const newDiv = document.createElement('div');
+      newDiv.innerHTML = newDivContent;
+      
+      // Insert the new div after the target element
+      targetElement.insertAdjacentElement('afterend', newDiv);
+    }
   };
+
+
+  function replaceNHSProxyAccessHowToGetAccess() {
+    // Define the new div HTML content
+    const newDivContent = `
+      <div class="nhsuk-inset-text">
+        <span class="nhsuk-u-visually-hidden">Information: </span>
+        <h4 class="nhsuk-heading-m">Manage services online for yourself or someone you care for using your NHS App or account</h4>
+        <ul class="nhsuk-list nhsuk-u-clear">
+            <li class="nhsuk-u-float-left">
+              <a href="#" role="button" draggable="false" class="nhsuk-button nhsuk-button--beta-login">Log in or open NHS App</a>
+            </li>
+            <li class="nhsuk-u-float-left">
+              <a href="#" role="button" draggable="false" class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-bottom-0">Create an account</a>
+            </li>
+        </ul>
+      </div>
+    `;
+  
+    // Find the target element
+    const targetElement = document.querySelector('div.nhsuk-action-link');
+    
+    if (targetElement) {
+      // Create a new div element
+      const newDiv = document.createElement('div');
+      newDiv.innerHTML = newDivContent;
+  
+      // Replace the target element with the new div
+      targetElement.replaceWith(newDiv);
+    }
+  }
 
 
   //Care services equipment and care homes (insert a new link as first item)
@@ -266,6 +395,7 @@
       }
   }
 
+
   // Repeat prescriptions page
   function changeRepeatPrescriptionHeader() {
     console.log('changeRepeatPrescriptionHeader called'); // Debugging: Log when changeRepeatPrescriptionHeader is called
@@ -343,49 +473,160 @@
 
   // Function that runs in every page opened 
 
-  function changeButtonLinks() {
-    // List of classes to target
-    const targetClasses = ['nhsuk-button', 'nhsuk-button nhsuk-button--beta-login'];
+  // EDUCATIONAL, LOOP ALL THE H2 ELEMENTS OTHERWISE ONLY CONSIDER THE FIRST ONE! 
+  // Function to change the text of a specific element in any NHS page visited by looping all the h2
+  function changeHealthRecordH2() {
+    // Get all h2 elements on the page
+    var h2Elements = document.querySelectorAll('h2');
     
-    // Specific href to target
-    const targetHref = 'https://www.nhsapp.service.nhs.uk/login';
-  
-    // Change href for links with specified classes
-    targetClasses.forEach(targetClass => {
-      // Select all <a> elements with the current class
-      const buttons = document.querySelectorAll(`a.${targetClass.split(' ').join('.')}`);
-      
-      // Iterate through all selected <a> elements
-      buttons.forEach(button => {
-        // Change the href attribute to https://www.google.com
-        button.href = 'https://proxy-nhs-app-7c9c0511777e.herokuapp.com/Sprint17/login/2-login';
-      });
+    // Loop through all h2 elements
+    h2Elements.forEach(function(h2) {
+      // Check if the h2 element has the target text content
+      if (h2.textContent.trim() === 'View your GP health record using your NHS App or account') {
+        h2.textContent = "View your GP health record or someone else's using your NHS App or account.";
+      }
     });
+  }
+  // Run the function to change the h2 text
+  changeHealthRecordH2();
   
-    // Change href for links with the specified href
-    const hrefLinks = document.querySelectorAll(`a[href="${targetHref}"]`);
-  
-    // Iterate through all selected <a> elements with the specific href
-    hrefLinks.forEach(link => {
-      // Change the href attribute to https://www.google.com
-      link.href = 'https://proxy-nhs-app-7c9c0511777e.herokuapp.com/Sprint17/login/2-login';
-    });
-  };
 
-    // Function to replace login header 
-    function changeNHSH3Login(){
+  // Function to replace login header 
+  function changeNHSH3Login(){
 
-      var targetH3 = document.querySelector('h3');
-      if (targetH3 && targetH3.textContent.trim() === 'Access NHS services online') {
-          targetH3.textContent = 'Access NHS services online for yourself or someone you care for';
-      } else {
-          console.log('Target h3 not found'); // Debugging: Log if the target h4 element is not found
-      };
+    var targetH3 = document.querySelector('h3');
+    if (targetH3 && targetH3.textContent.trim() === 'Access NHS services online') {
+        targetH3.textContent = 'Access NHS services online for yourself or someone you care for';
+    } else {
+        console.log('Target h3 not found'); // Debugging: Log if the target h4 element is not found
     };
-
-  
-  // Call the function to change the href attributes
-  changeButtonLinks();
+  };
   changeNHSH3Login();
+
+
+  function createTestEnvironmentBanner() {
+    // Check if the banner already exists
+    if (document.getElementById('test-environment-banner')) {
+      return; // Banner already exists, do nothing
+    }
+  
+    // Create a div element for the banner
+    const banner = document.createElement('div');
+  
+    // Set the banner's id for future reference
+    banner.id = 'test-environment-banner';
+  
+    // Style the banner
+    banner.style.position = 'fixed';
+    banner.style.top = '0';
+    banner.style.left = '0';
+    banner.style.width = '100%';
+    banner.style.backgroundColor = '#ffeb3b';
+    banner.style.color = 'black';
+    banner.style.textAlign = 'center';
+    banner.style.padding = '10px';
+    banner.style.zIndex = '1000';
+    banner.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
+    banner.style.display = 'flex';
+    banner.style.justifyContent = 'space-between';
+    banner.style.alignItems = 'center';
+  
+    // Create a div for the text to center it
+    const textDiv = document.createElement('div');
+    textDiv.textContent = 'TEST ENVIRONMENT';
+    textDiv.style.flexGrow = '1';
+    textDiv.style.textAlign = 'center';
+  
+    // Create a button to open the popup
+    const button = document.createElement('button');
+    button.textContent = 'Details';
+    button.style.marginLeft = 'auto';
+    button.style.padding = '5px 10px';
+    button.style.backgroundColor = '#000';
+    button.style.color = '#fff';
+    button.style.border = 'none';
+    button.style.cursor = 'pointer';
+    button.onclick = openDetailsPopup;
+  
+    // Append the text div and button to the banner
+    banner.appendChild(textDiv);
+    banner.appendChild(button);
+  
+    // Append the banner to the body
+    document.body.appendChild(banner);
+  
+    // Adjust the body's top margin to prevent content overlap
+    document.body.style.marginTop = banner.offsetHeight + 'px';
+  }
+  
+  // Create the popup element
+  function createPopup() {
+    const popup = document.createElement('div');
+    popup.id = 'test-environment-popup';
+    popup.style.position = 'fixed';
+    popup.style.top = '50%';
+    popup.style.left = '50%';
+    popup.style.transform = 'translate(-50%, -50%)';
+    popup.style.width = '80%';
+    popup.style.maxWidth = '2000px';
+    popup.style.backgroundColor = 'white';
+    popup.style.padding = '20px';
+    popup.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
+    popup.style.zIndex = '1001';
+    popup.style.display = 'none'; // Initially hidden
+  
+    const popupContent = `
+    <h1>Prototype Iterations</h1>
+    <h2>Sprint 17</h2>
+    <ul>
+      <li>
+        Added signposting opportunities. Find details here: 
+        <a href="https://nhsd-confluence.digital.nhs.uk/display/NPA/Index+of+signposting+opportunities+to+access+services+for+someone+else">https://nhsd-confluence.digital.nhs.uk/display/NPA/Index+of+signposting+opportunities+to+access+services+for+someone+else</a>
+      </li>
+      <li>'Accessing services online for yourself or someone you care for' added to all login components of the NHS App and Login.</li>
+      <li>
+        Removed 'Accessing GP services for someone else, with proxy access' link from 
+        <a href="https://www.nhs.uk/nhs-services/gps/">https://www.nhs.uk/nhs-services/gps/</a>
+      </li>
+      <li>All login accesses redirect the user to the NHS App prototype home screen.</li>
+      <!-- Add more details as needed -->
+    </ul>
+
+    <h2>Sprint 20</h2>
+    <ul>
+      <li>Banner added to indicate Test Environment and details page.</li>
+      <li>
+        Added 'Accessing GP services for someone else, with proxy access' link from 
+        <a href="https://www.nhs.uk/nhs-services/gps/">https://www.nhs.uk/nhs-services/gps/</a> and added login components to the NHS App.
+      </li>
+      <li>When a user interact with the NHS APP login components, they are redirected to the correct hubs in the NHS App prototype.</li>
+      <!-- Add more details as needed -->
+    </ul>
+
+    <button id="close-popup-button">Close</button>
+    `;
+    popup.innerHTML = popupContent;
+  
+    document.body.appendChild(popup);
+  
+    // Add event listener to close button
+    document.getElementById('close-popup-button').onclick = closeDetailsPopup;
+  }
+  
+  // Open the popup
+  function openDetailsPopup() {
+    const popup = document.getElementById('test-environment-popup');
+    popup.style.display = 'block';
+  }
+  
+  // Close the popup
+  function closeDetailsPopup() {
+    const popup = document.getElementById('test-environment-popup');
+    popup.style.display = 'none';
+  }
+
+  createTestEnvironmentBanner();
+  createPopup();
+
 
 })();
