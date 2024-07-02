@@ -85,9 +85,7 @@
       param1 = 'prescription';
     } else if (currentUrl.includes('appointments')) {
       param1 = 'appointments';
-    } else if (currentUrl.includes('record')) {
-      param1 = 'record';
-    } else if (currentUrl.includes('coronavirus-record')) {
+    } else if (currentUrl.includes('coronavirus')) {
       param1 = 'coronavirus';
     } else if (currentUrl.includes('test')) {
     param1 = 'record';
