@@ -68,7 +68,7 @@
 
 
 
-  // URL FOR SIGNPOSTING - change the url 'email address login page' to adapt logic to another prototype
+  // URL FOR SIGNPOSTING 
   function changeButtonLinks() {
     // List of classes to target
     const targetClasses = ['nhsuk-button', 'nhsuk-button nhsuk-button--beta-login'];
@@ -88,7 +88,9 @@
     } else if (currentUrl.includes('coronavirus')) {
       param1 = 'coronavirus';
     } else if (currentUrl.includes('test')) {
-    param1 = 'record';
+      param1 = 'record'; // if user access records or tests results it will access the my records screen!
+    } else if (currentUrl.includes('record')) {
+    param1 = 'record'; 
     } else param1 = 'home';
     
     // Base URL for prototype login
